@@ -14,7 +14,7 @@ class Stock(models.Model):
 class Transaction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
+    quantity = models.DecimalField(min_value=0, decimal_places=3)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -27,4 +27,4 @@ class Portfolio(models.Model):
 class PortfolioStock(models.Model):
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
+    quantity = models.DecimalField(min_value=0)
