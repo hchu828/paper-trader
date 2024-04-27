@@ -1,12 +1,9 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.contrib.auth.models import User
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.name
+class CustomUser(AbstractUser):
+    pass
 
 
 class Stock(models.Model):
@@ -18,7 +15,7 @@ class Stock(models.Model):
 
 
 class Transaction(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     # TODO: add validator to check that value >= 0
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
@@ -32,8 +29,8 @@ class Transaction(models.Model):
 
 class Portfolio(models.Model):
     name = models.CharField(max_length=20)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    stocks = models.ManyToManyField(Stock, through='PortfolioStock')
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    stocks = models.ManyToManyField(Stock, through="PortfolioStock")
 
     def __str__(self):
         return self.name
