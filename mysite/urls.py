@@ -19,7 +19,10 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    # Django admin
     path("admin/", admin.site.urls),
-    path("portfolios/", include("portfolios.urls")),
+    # User management
+    path("accounts/", include("accounts.urls")),
+    # Local apps
     path("", include("pages.urls")),
 ]
