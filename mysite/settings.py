@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "portfolios.apps.PortfoliosConfig",
+    "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
 ]
 
@@ -95,7 +95,7 @@ DATABASES = {
     },
 }
 
-AUTH_USER_MODEL = "portfolios.CustomUser"
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import Portfolio, Stock, PortfolioStock, Transaction
 
 CustomUser = get_user_model()
 
@@ -17,7 +16,3 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(Portfolio)
-admin.site.register(Stock)
-admin.site.register(PortfolioStock)
-admin.site.register(Transaction)
