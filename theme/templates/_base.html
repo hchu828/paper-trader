@@ -1,0 +1,23 @@
+<!-- templates/_base.html -->
+<!DOCTYPE html>
+{% load static tailwind_tags %}
+<html>
+<head>
+    <title>{% block title %}Stockfolio{% endblock title %}</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    {% tailwind_css %}
+</head>
+<body class="bg-gray-50 font-serif leading-normal tracking-normal">
+<div class="container">
+    {% block content %}
+    {% endblock content %}
+</div>
+<div class="container mx-auto">
+    <section class="flex items-center justify-center h-screen">
+        <h1 class="text-5xl">Stockfolio</h1>
+    </section>
+</div>
+</body>
+</html>
