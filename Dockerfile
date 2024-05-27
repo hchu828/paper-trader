@@ -25,6 +25,7 @@ COPY . .
 WORKDIR /app/theme/static_src
 RUN npm install
 RUN npm run build
+RUN npx update-browserslist-db@latest
 
 # Collect static files
 WORKDIR /app
