@@ -42,13 +42,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Local
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
-    "tailwind",
     "theme",
-    "django_browser_reload",
+    # Third-party
     "crispy_forms",
     "crispy_tailwind",
+    "django_browser_reload",
+    "tailwind",
 ]
 
 MIDDLEWARE = [
