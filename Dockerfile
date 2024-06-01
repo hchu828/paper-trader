@@ -1,34 +1,45 @@
-# Pull base image
-FROM python:3.9.18-slim
+# Stage 1: Build stage
+FROM python:3.9.18-slim as builder
 
-# Set environmental variables
 ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Set working directory
 WORKDIR /app
 
-# Install npm
-RUN apt-get update
-RUN apt-get install -y npm
+# Install npm and Python dependencies
+RUN apt-get update && \
+    apt-get install -y npm
 
-# Install Python dependencies
+
 COPY ./requirements.txt .
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
-# Copy project
 COPY . .
 
-# Install Tailwind dependencies
+# Build static files
 WORKDIR /app/theme/static_src
-RUN npm install
-RUN npm run build
-RUN npx update-browserslist-db@latest
+RUN npm run build && \
+    npx update-browserslist-db@latest
+
+# Stage 2: Production stage
+FROM python:3.9.18-slim
+
+ENV PIP_DISABLE_PIP_VERSION_CHECK 1
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /app
+
+# Copy Python dependencies from the builder stage
+COPY --from=builder /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
+COPY --from=builder /usr/local/bin /usr/local/bin
+
+# Copy the application code
+COPY --from=builder /app .
 
 # Collect static files
-WORKDIR /app
 RUN python manage.py collectstatic --noinput
 
 # Expose port
