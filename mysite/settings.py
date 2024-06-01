@@ -10,21 +10,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
-from environs import Env
+from dotenv import load_dotenv
 
-env = Env()
-env.read_env()
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str("DJANGO_SECRET_KEY")
+SECRET_KEY = "django-insecure-i#tldv&k%bwl3+1z*6^k!6l_uy%wijvqp212ly7)zv19y7w(q*"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -94,11 +95,11 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env.str("DB_NAME"),
-        "USER": env.str("DB_USER"),
-        "PASSWORD": env.str("DB_PASSWORD"),
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
         "HOST": "db",
-        "PORT": env.str("DB_PORT"),
+        "PORT": os.environ.get("DB_PORT"),
     },
     "sqlite": {
         "ENGINE": "django.db.backends.sqlite3",
